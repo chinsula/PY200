@@ -64,7 +64,7 @@ class Employee:
              :param serviceability - должность
 
          Примеры:
-         employee1 = Employee("Портнов Е.В.", "20", "госинспектор БДД")  # инициализация экземпляра класса
+         employee1 = Employee("Иванов И.И.", "2", "инсппектор")  # инициализация экземпляра класса
          """
 
     def __init__(self, name: str, experience: int, post: str):
