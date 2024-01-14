@@ -1,24 +1,26 @@
 class Case:
-    """
-    Класс "Дело об административном правонарушении"
-        :param date_ - дата возбуждения дела
-        :param article - статья КоАП РФ
-        :param result - исполнено - True или прекращено - False
-
-        Примеры:
-        case = Case("01.11.2023", "12.34ч1", True)  # инициализация экземпляра класса
-    """
-
     def __init__(self, date_: str, article: str, result: bool):
-        self.date_ = date_
-        self.article = article
-        self.result = result
+        """
+        Класс "Дело об административном правонарушении"
+        :param date_: дата возбуждения дела
+        :param article: статья КоАП РФ, по которой возбуждено
+        :param result: результат рассмотрения дела: True - исполнено,
+         прекращено - False
+        Примеры:
+        >>> case = Case("01.11.2023", "12.34ч1", True)  # инициализация экземпляра класса
+        """
 
         if not isinstance(date_, str):
             raise TypeError(f"Дата возбуждения не может быть типа {type(date_)}")
+        self.date_ = date_
 
         if not isinstance(article, str):
             raise TypeError(f"Статья не может быть типа {type(article)}")
+        self.article = article
+
+        if not isinstance(result, bool):
+            raise TypeError(f"Результат рассмотрения не может быть типа {type(result)}")
+        self.result = result
 
     def extend_the_case(self, prolongation):  # перенос сроков рассмотрения
         pass
@@ -27,61 +29,64 @@ class Case:
         pass
 
 
-class Auto:
-    """
-     Класс "Автомобили ГИБДД"
-         :param number - госномер
-         :param year_of_release - дата выпуска
-         :param serviceability - исправность
-
-        Примеры:
-        auto1 = Auto("T001CO86", 2023, True)  # инициализация экземпляра класса
-     """
-
+class CarPolice:
     def __init__(self, number: str, year_of_release: int, serviceability: bool):
-        self.number = number
-        self.year_of_release = year_of_release
-        self.serviceability = serviceability
+        """
+        Класс "Автомобили полиции"
+        :param number: государственный регистрационный знак
+        :param year_of_release: дата выпуска транспортного средства
+        :param serviceability: исправность: True - исправен,
+        False - неисправен
+        Примеры:
+        >>> auto1 = CarPolice("T001CO86", 2023, True)  # инициализация экземпляра класса
+        """
 
         if not isinstance(number, str):
             raise TypeError(f"Госномер не может быть типа {type(number)}")
+        self.number = number
 
         if not isinstance(year_of_release, int):
             raise TypeError(f"Год выпуска не может быть типа {type(year_of_release)}")
+        self.year_of_release = year_of_release
 
-    def set_it_car_service(self, repair):  # нахождение в ремонте
-        pass
+        if not isinstance(serviceability, bool):
+            raise TypeError(f"Исправность не может быть типа {type(serviceability)}")
+        self.serviceability = serviceability
 
-    def changing_number(self, result):  # изменение госномера, перерегистрация
-        pass
+
+def set_it_car_service(self, repair):  # нахождение в ремонте
+    pass
+
+
+def changing_number(self, chang_number):  # изменение госномера, перерегистрация
+    pass
 
 
 class Employee:
-    """
-         Класс "сотрудники Госавтоинспекции"
-             :param number - ФИО
-             :param year_of_release - стаж в должности
-             :param serviceability - должность
-
-         Примеры:
-         employee1 = Employee("Иванов И.И.", 2, "инспектор")  # инициализация экземпляра класса
-         """
-
     def __init__(self, name: str, experience: int, post: str):
-        self.name = name
-        self.experience = experience
-        self.post = post
+        """
+        Класс "сотрудники полиции"
+        :param name: Фамилия, инициалы сотрудника
+        :param experience: стаж работы
+        :param post: занимаемая должность
+        """
 
         if not isinstance(name, str):
             raise TypeError(f"Имя сотрудника не может быть типа {type(name)}")
+        self.name = name
 
         if not isinstance(experience, int):
             raise TypeError(f"Стаж работы не может быть типа {type(experience)}")
+        self.experience = experience
 
-    def change_of_position(self, post):  # изменение должности
+        if not isinstance(post, int):
+            raise TypeError(f"Должность не может быть типа {type(post)}")
+        self.post = post
+
+    def change_of_position(self, new_post):  # изменение должности
         pass
 
-    def change_of_experience(self, experience):  # изменение стажа в должности
+    def get_presence(self, presence):  # наличие на службе
         pass
 
 
