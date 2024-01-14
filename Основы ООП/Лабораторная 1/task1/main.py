@@ -54,20 +54,20 @@ class CarPolice:
         self.serviceability = serviceability
 
 
-def set_it_car_service(self, repair):  # нахождение в ремонте
-    pass
+def change_serviceability(self, status):  # нахождение в ремонте
+    self.serviceability = status
 
 
-def changing_number(self, chang_number):  # изменение госномера, перерегистрация
+def changing_number(self, new_number):  # изменение госномера, перерегистрация
     pass
 
 
 class Employee:
-    def __init__(self, name: str, experience: int, post: str):
+    def __init__(self, name: str, date_of_admission: int, post: str):
         """
         Класс "сотрудники полиции"
         :param name: Фамилия, инициалы сотрудника
-        :param experience: стаж работы
+        :param date_of_admission: дата трудоустройства
         :param post: занимаемая должность
         """
 
@@ -75,9 +75,9 @@ class Employee:
             raise TypeError(f"Имя сотрудника не может быть типа {type(name)}")
         self.name = name
 
-        if not isinstance(experience, int):
-            raise TypeError(f"Стаж работы не может быть типа {type(experience)}")
-        self.experience = experience
+        if not isinstance(date_of_admission, int):
+            raise TypeError(f"Дата трудоустройства не может быть типа {type(date_of_admission)}")
+        self.experience = date_of_admission
 
         if not isinstance(post, int):
             raise TypeError(f"Должность не может быть типа {type(post)}")
@@ -86,7 +86,7 @@ class Employee:
     def change_of_position(self, new_post):  # изменение должности
         pass
 
-    def get_presence(self, presence):  # наличие на службе
+    def get_experience(self, experience):  # стаж службы
         pass
 
 
