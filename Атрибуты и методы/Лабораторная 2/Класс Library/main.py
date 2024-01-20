@@ -12,10 +12,35 @@ BOOKS_DATABASE = [
 ]
 
 
-# TODO написать класс Book
+class Book:
+    def __init__(self, id_: int, name: str, pages: int):
+        self.id_ = id_
+        self.name = name
+        self.pages = pages
+
+    def __str__(self) -> str:
+        return f'{self.id_}'
 
 
-# TODO написать класс Library
+class Library:
+    def __init__(self, books: list = None):
+        if not books:
+            self.books = list()
+        else:
+            self.books = books
+
+    def get_next_book_id(self):
+        if not self.books:
+            return 1
+        else:
+            return int(str(self.books[-1])) + 1
+
+    def get_index_by_book_id(self, id_):
+        for index, book in enumerate(self.books):
+            if book:
+                return index
+            else:
+                raise ValueError("Книги с запрашиваемым id не существует")
 
 
 if __name__ == '__main__':
@@ -25,6 +50,7 @@ if __name__ == '__main__':
     list_books = [
         Book(id_=book_dict["id"], name=book_dict["name"], pages=book_dict["pages"]) for book_dict in BOOKS_DATABASE
     ]
+
     library_with_books = Library(books=list_books)  # инициализируем библиотеку с книгами
     print(library_with_books.get_next_book_id())  # проверяем следующий id для непустой библиотеки
 
