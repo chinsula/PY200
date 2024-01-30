@@ -6,27 +6,76 @@ class Date:
     )
 
     def __init__(self, day: int, month: int, year: int):
+        self.is_valid_date(day, month, year)
         self._day = day
         self._month = month
         self._year = year
 
-        self.is_valid_date(self._day, self._month, self._year)
-
-    # TODO какой декоратор следует применить?
-    def is_leap_year(self, year: int) -> bool:
+    @staticmethod
+    def is_leap_year(year: int) -> bool:
         """Проверяет, является ли год високосным"""
-        ...  # TODO записать условие проверки високосного года
+        if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+            return True
+        return False
 
-    def get_max_day(self, month: int, year: int) -> int:
+    def get_max_day(self) -> int:
         """Возвращает максимальное количество дней в месяце для указанного года"""
-        ...  # TODO вернуть количество дней указанного месяца
+        if self.is_leap_year(self._year):
+            days_count = self.DAY_OF_MONTH[1][self._month - 1]
+        else:
+            days_count = self.DAY_OF_MONTH[0][self._month - 1]
+        return days_count
 
     def is_valid_date(self, day: int, month: int, year: int) -> None:
         """Проверяет, является ли дата корректной"""
-        ...  # TODO если указанный набор день, месяц и год неверны, то вызвать ошибку ValueError
+        if not 1 <= month <= 12:
+            raise ValueError
 
-    # TODO записать getter и setter для дня
+        if self.is_leap_year(year):
+            days_count = self.DAY_OF_MONTH[1][month - 1]
+        else:
+            days_count = self.DAY_OF_MONTH[0][month - 1]
 
-    # TODO записать getter и setter для месяца
+        if not 1 <= day <= days_count:
+            raise ValueError
 
-    # TODO записать getter и setter для года
+        return True
+
+    def _get_day(self):
+        return self._day
+
+    def _set_day(self, value):
+        if self.is_valid_date(value, self._month, self._year):
+            self._day = value
+
+    @property
+    def days(self):
+        return self._get_day()
+
+    @days.setter
+    def days(self, value):
+        self._set._day(value)
+
+    @property
+    def month(self):
+        return self._month
+
+    @month.setter
+    def month(self, value):
+        if self.is_valid_date(self._day, value, self._year):
+            self._month = value
+
+    @property
+    def year(self):
+        return self._year
+
+    @year.setter
+    def year(self, value):
+        if self.is_valid_date(self._day, self._year, value):
+            self._year = value
+
+
+if __name__ == '__main__':
+    date = Date(15, 12, 2021)
+    print(date.month)
+    date.month = 17

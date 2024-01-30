@@ -1,8 +1,9 @@
 class Book:
     """ Базовый класс книги. """
+
     def __init__(self, name: str, author: str):
-        self.name = name
-        self.author = author
+        self._name = name
+        self._author = author
 
     def __str__(self):
         return f"Книга {self.name}. Автор {self.author}"
@@ -10,22 +11,41 @@ class Book:
     def __repr__(self):
         return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r})"
 
+    @property
+    def name(self):
+        return self._name
 
-class PaperBook:
+    @property
+    def name(self):
+        return self._author
+
+
+class PaperBook(Book):
     def __init__(self, name: str, author: str, pages: int):
-        self.name = name
-        self.author = author
-        self.pages = pages
+        super().__init__(name, author)
+        if self.pages > 0 and isinstance(self.pages, int):
+            self._pages = pages
 
-    def __str__(self):
-        return f"Книга {self.name}. Автор {self.author}"
+    @property
+    def pages(self):
+        return self._pages
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r}, pages={self.pages!r})"
 
 
-class AudioBook:
+class AudioBook(Book):
     def __init__(self, name: str, author: str, duration: float):
-        self.name = name
-        self.author = author
-        self.duration = duration
+        super().__init__(name, author)
+        if duration > 0 and isinstance(duration, (int, float)):
+            self._duration = duration
 
-    def __str__(self):
-        return f"Книга {self.name}. Автор {self.author}"
+    @property
+    def duration(self):
+        return self._duration
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r}, duration={self.duration!r})"
+
+if __name__ == '__main__':
+    pb = PaperBook('name', 'author')
