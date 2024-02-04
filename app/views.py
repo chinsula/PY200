@@ -1,9 +1,11 @@
-from django.shortcuts import render
-from .models import get_random_text
-from django.http import HttpRequest, JsonResponse
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.contrib.auth import login, logout, authenticate
-from .forms import TemplateForm
+from django.shortcuts import render
+
+from .forms import TemplateForm, UserCreationForm, CustomUserCreationForm
+from .models import get_random_text
 
 
 def template_view(request):
@@ -13,12 +15,20 @@ def template_view(request):
     if request.method == "POST":
         received_data = request.POST  # Приняли данные в словарь
 
-        # как пример получение данных по ключу `my_text`
-        # my_text = received_data.get('my_text')
+        form = TemplateForm(received_data)  # Передали данные в форму
+        if form.is_valid():  # Проверили, что данные все валидные
+            my_text = form.cleaned_data.get("my_text")  # Получили очищенные данные
+            my_select = form.cleaned_data.get("my_select")
+            my_textarea = form.cleaned_data.get("my_textarea")
 
-        # TODO Проведите здесь получение и обработку данных если это необходимо
-
-        # TODO Верните HttpRequest или JsonResponse с данными
+            checkbox = received_data.get('checkbox')
+            if checkbox:
+                return JsonResponse(
+                    {"checkbox": checkbox, "my_text": my_text, "my_select": my_select, "my_textarea": my_textarea},
+                    json_dumps_params={'ensure_ascii': False, 'indent': 4})
+            # else:
+            #     form = "Извините, но без Вашего согласия обработка данных будет незаконна!"
+        return render(request, 'app/template_form.html', context={"form": form})
 
 
 def login_view(request):
@@ -26,12 +36,12 @@ def login_view(request):
         return render(request, 'app/login.html')
 
     if request.method == "POST":
-        data = request.POST
-        user = authenticate(username=data["username"], password=data["password"])
-        if user:
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
             return redirect("app:user_profile")
-        return render(request, "app/login.html", context={"error": "Неверные данные"})
+        return render(request, "app/login.html", context={"form": form})
 
 
 def logout_view(request):
@@ -45,7 +55,13 @@ def register_view(request):
         return render(request, 'app/register.html')
 
     if request.method == "POST":
-        return render(request, 'app/register.html')
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Возвращает сохраненного пользователя из данных формы
+            login(request, user)
+            return redirect("app:user_profile")
+
+        return render(request, 'app/register.html', context={"form": form})
 
 
 def reset_view(request):
@@ -67,8 +83,8 @@ def user_detail_view(request):
     if request.method == "GET":
         return render(request, 'app/user_details.html')
 
+
 def get_text_json(request):
     if request.method == "GET":
         return JsonResponse({"text": get_random_text()},
                             json_dumps_params={"ensure_ascii": False})
-

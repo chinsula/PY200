@@ -1,5 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
+
+
 # TODO создайте здесь все необходимые формы
 
 
@@ -51,3 +53,16 @@ class TemplateForm(forms.Form):
 * forms.RegexField(regex='[А-яA-z]+') - <input type="text"> (с дополнительной валидацией на стороне сервера для соответствия регулярному выражению)
 * forms.UUIDField() - <input type="text"> (для ввода UUID)
 """
+
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(widget=forms.EmailInput)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+            if hasattr(self, "save_m2m"):
+                self.save_m2m()
+        return user
