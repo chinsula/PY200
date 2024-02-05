@@ -41,6 +41,18 @@ INSTALLED_APPS = [
     'social_django',
 ]
 
+AUTHENTICATION_BACKENDS = (
+   'social_core.backends.github.GithubOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_REDIRECT_URL = '/profile/' # Чтобы после авторизации перенаправлялось на страницу пользователя
+
+SOCIAL_AUTH_GITHUB_KEY = '4a6aa849f18f32c81a5e'
+SOCIAL_AUTH_GITHUB_SECRET = 'bf17b5b54b7e97f54367926075cffabc1a63474d'
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email', 'read:user']
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,14 +135,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTHENTICATION_BACKENDS = (
-   'social_core.backends.github.GithubOAuth2',
-   'django.contrib.auth.backends.ModelBackend',
-)
-
-LOGIN_REDIRECT_URL = '/profile/' # Чтобы после авторизации перенаправлялось на страницу пользователя
-
-SOCIAL_AUTH_GITHUB_KEY = '4a6aa849f18f32c81a5e'
-SOCIAL_AUTH_GITHUB_SECRET = 'bf17b5b54b7e97f54367926075cffabc1a63474d'
-SOCIAL_AUTH_GITHUB_SCOPE = ['user:email', 'read:user']
