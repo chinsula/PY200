@@ -19,7 +19,7 @@
 					<h4 class="text-center mb-4">
 						Заголовок вашей формы
 					</h4>
-					<form action="", method="post">
+					<form action="" method="post">
                         {% csrf_token %}
 						<!-- Запишите здесь тег {% csrf_token %} -->
 
@@ -71,7 +71,9 @@
                         <div class="form-input">
                             <<input type="checkbox" name="checkbox">
                         </div>
-
+						<p style="color: red">
+							<b>{{form}}</b>
+						</p>
                         <!--------------------------------------------------------------------------------------------->
 						{% if form.errors %}
     						<div class="mb-3 d-flex align-items-center">

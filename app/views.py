@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 
@@ -23,12 +23,12 @@ def template_view(request):
 
             checkbox = received_data.get('checkbox')
             if checkbox:
-                return JsonResponse(
-                    {"checkbox": checkbox, "my_text": my_text, "my_select": my_select, "my_textarea": my_textarea},
-                    json_dumps_params={'ensure_ascii': False, 'indent': 4})
-            # else:
-            #     form = "Извините, но без Вашего согласия обработка данных будет незаконна!"
-        return render(request, 'app/template_form.html', context={"form": form})
+                return HttpResponse("Все работает!")
+                # return JsonResponse(
+                #     {"checkbox": checkbox, "my_text": my_text, "my_select": my_select, "my_textarea": my_textarea},
+                #     json_dumps_params={'ensure_ascii': False, 'indent': 4})
+            form = "Извините, но без Вашего согласия обработка данных будет незаконна!"
+            return render(request, 'app/template_form.html', context={"form": form})
 
 
 def login_view(request):
