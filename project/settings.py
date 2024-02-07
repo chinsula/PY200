@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'social_django',
+    'landing',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -50,8 +51,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Пример 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.ethereal.email'
-EMAIL_HOST_USER = 'otilia.barrows@ethereal.email'
-EMAIL_HOST_PASSWORD = 'NuywPP2d1ZYngWPNwV'
+EMAIL_HOST_USER = 'darrel.jast56@ethereal.email'
+EMAIL_HOST_PASSWORD = 'SjX9BHQD275md2thKg'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 
